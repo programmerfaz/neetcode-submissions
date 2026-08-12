@@ -1,0 +1,64 @@
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        int num1 = -1, num2 = -1;
+        if (tokens.length < 2) return Integer.valueOf(tokens[0]);
+        int result = 0;
+        for (int i = 0; i < tokens.length; i++){
+            if (tokens[i].equals("+")){
+                num1 = stack.pop();
+                num2 = stack.pop();
+                result = num2+num1;
+                stack.push(result);
+            }
+            else if (tokens[i].equals("-")){
+                num1 = stack.pop();
+                num2 = stack.pop();
+                result = num2-num1;
+                stack.push(result);
+            }
+            else if (tokens[i].equals("*")){
+                num1 = stack.pop();
+                num2 = stack.pop();
+                result = num2*num1;
+                stack.push(result);
+            }
+            else if (tokens[i].equals("/")){
+                num1 = stack.pop();
+                num2 = stack.pop();
+                result = num2/num1;
+                stack.push(result);
+            }
+            else{
+                stack.push(Integer.valueOf(tokens[i]));
+            }
+        }
+        return result;
+    }
+}
+
+/*
+Evaluate Reverse Polish Notation
+Medium
+Topics
+Company Tags
+Hints
+You are given an array of strings tokens that represents a valid arithmetic expression in Reverse Polish Notation.
+
+Return the integer that represents the evaluation of the expression.
+
+The operands may be integers or the results of other operations.
+The operators include '+', '-', '*', and '/'.
+Assume that division between integers always truncates toward zero.
+Example 1:
+
+Input: tokens = ["1","2","+","3","*","4","-"]
+
+Output: 5
+
+Explanation: ((1 + 2) * 3) - 4 = 5
+Constraints:
+
+1 <= tokens.length <= 10000.
+tokens[i] is "+", "-", "*", or "/", or a string representing an integer in the range [-200, 200].
+*/
